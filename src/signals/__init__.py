@@ -1,0 +1,1 @@
+Signal generation engine and strategy presets.
