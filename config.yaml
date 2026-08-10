@@ -1,0 +1,63 @@
+exchanges:
+  binance:
+    enabled: true
+    testnet: true
+  bybit:
+    enabled: true
+    testnet: true
+  okx:
+    enabled: false
+
+symbols:
+  - BTC/USDT
+  - ETH/USDT
+  - SOL/USDT
+
+timeframes:
+  - 5m
+  - 15m
+  - 1h
+  - 4h
+  - 1d
+
+strategy:
+  preset: regime-aware
+  confluence_threshold: 65
+  min_confidence: 58
+
+risk:
+  max_daily_drawdown: 0.15
+  max_consecutive_losses: 5
+  position_size_kelly_fraction: 0.25
+  max_positions: 3
+  max_leverage: 3
+
+backtest:
+  initial_balance: 10000
+  geometry: atr
+  tp_r_multiple: 2.0
+  sl_atr_multiple: 1.5
+  cost_model:
+    maker_fee: 0.001
+    taker_fee: 0.0015
+    slippage: 0.0005
+
+rl:
+  algorithm: PPO
+  learning_rate: 0.0003
+  total_timesteps: 100000
+  retrain_interval_days: 7
+
+telegram:
+  enabled: true
+  alerts:
+    signals: true
+    daily_pnl: true
+    drawdown_alert: true
+    regime_change: true
+    weekly_report: true
+
+scheduler:
+  signal_check_interval: 300
+  backtest_cron: "0 6 * * *"
+  rl_retrain_cron: "0 2 * * 0"
