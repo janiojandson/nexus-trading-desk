@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  nexus-trading:
+    build: .
+    container_name: nexus-trading-desk
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    ports:
+      - "8000:8000"
+    command: python -m src.main --mode paper --symbol BTC/USDT,ETH/USDT,SOL/USDT
+
+  # Optional: Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: nexus-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
